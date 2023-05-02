@@ -13,6 +13,7 @@ use Filament\Resources\Table;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
@@ -27,29 +28,57 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
+                    Forms\Components\Grid::make()->schema([
                     Forms\Components\TextInput::make('name')
                         ->required()
                         ->maxLength(255),
                     Forms\Components\TextInput::make('username')
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('email')
-                        ->email()
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\DateTimePicker::make('email_verified_at'),
-                    Forms\Components\TextInput::make('password')
-                        ->password()
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\TextInput::make('phone')
-                        ->tel()
-                        ->maxLength(255),
-                    Forms\Components\Textarea::make('address')
-                        ->maxLength(65535),
-                    Forms\Components\Toggle::make('is_active')
-                        ->required(),
+                       ]),
+
+                    Forms\Components\Grid::make()->schema([
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('phone')
+                            ->tel()
+                            ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                            ->required(),
+                    ]),
+
+                    Forms\Components\Grid::make()->schema([
+                        Forms\Components\DateTimePicker::make('email_verified_at'),
+                        Forms\Components\TextInput::make('password')
+                            ->password()
+                            ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                            ->dehydrated(fn ($state) => filled($state))
+                            ->required(fn (string $context): bool => $context === 'create')
+                    ]),
+
+                    Forms\Components\Grid::make(1)->schema([
+                        Forms\Components\TextInput::make('address')
+                            ->required()
+                            ->placeholder('123 Main St'),
+                    ]),
+                    Forms\Components\Grid::make(3)->schema([
+                        Forms\Components\TextInput::make('city')
+                            ->required()
+                            ->placeholder('City'),
+                        Forms\Components\TextInput::make('zipcode')
+                            ->required()
+                            ->placeholder('12345'),
+                        Forms\Components\TextInput::make('country')
+                            ->required()
+                            ->placeholder('Country'),
+                        Forms\Components\Toggle::make('is_active')
+                            ->label('Visible')
+                            ->helperText('This user address will default to visible on the front end.')
+                            ->default(true),
+                    ]),
+
                     Forms\Components\FileUpload::make('photo')->disk('public')->required(),
-                ])->columns(2),
+                ]),
               ]);
     }
 

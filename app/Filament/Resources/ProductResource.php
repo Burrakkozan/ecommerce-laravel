@@ -69,7 +69,6 @@ class ProductResource extends Resource
                                     ->label('Visible')
                                     ->helperText('This product will be hidden from all sales channels.')
                                     ->default(true),
-
                                 Forms\Components\DatePicker::make('created_at')
                                     ->label('Availability')
                                     ->default(now())

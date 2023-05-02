@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('zipcode')->nullable();
             $table->boolean('is_active')->default(false);
             $table->rememberToken();
             $table->timestamps();

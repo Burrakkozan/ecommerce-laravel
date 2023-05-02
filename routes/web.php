@@ -1,9 +1,14 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\frontend\BlogController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\frontend\PaymentController;
+use App\Http\Controllers\frontend\StripeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\AllUserController;
+use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\CompareController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\UserController;
@@ -54,8 +59,7 @@ Route::get('/coupon-calculation', [CartController::class, 'CouponCalculation']);
 Route::get('/coupon-remove', [CartController::class, 'CouponRemove']);
 
 
-// Checkout Page Route
-Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
+
 
 // Cart All Route
 Route::controller(CartController::class)->group(function(){
@@ -65,7 +69,8 @@ Route::controller(CartController::class)->group(function(){
 
     Route::get('/cart-decrement/{rowId}' ,[CartController::class, 'CartDecrement']);
     Route::get('/cart-increment/{rowId}' ,[CartController::class, 'CartIncrement']);
-
+// Checkout Page Route
+    Route::get('/checkout', [CartController::class, 'CheckoutCreate'])->name('checkout');
 
 });
 
@@ -87,9 +92,44 @@ Route::middleware(['auth'])->group(function() {
         Route::get('/compare-remove/{id}',[CompareController::class, 'CompareRemove']);
 
     });
+    // Checkout All Route
+    Route::controller(CheckoutController::class)->group(function(){
+        Route::post('/checkout/store' , [CheckoutController::class, 'CheckoutStore'])->name('checkout.store');
+
+    });
+
+
+    // Stripe All Route
+    Route::controller(StripeController::class)->group(function(){
+        Route::post('/stripe/order' , [StripeController::class, 'StripeOrder'])->name('stripe.order');
+        Route::post('/cash/order' , [StripeController::class, 'CashOrder'])->name('cash.order');
+
+
+    });
+
 
 }); // Gorup Milldeware End
 
+// User Dashboard All Route
+Route::controller(AllUserController::class)->group(function(){
+    Route::get('/user/account/page' ,[AllUserController::class,  'UserAccount'])->name('user.account.page');
+    Route::get('/user/change/password' , [AllUserController::class, 'UserChangePassword'])->name('user.change.password');
+
+    Route::get('/user/order/page' ,[AllUserController::class,  'UserOrderPage'])->name('user.order.page');
+
+    Route::get('/user/order_details/{order_id}' ,[AllUserController::class,  'UserOrderDetails']);
+    Route::get('/user/invoice_download/{order_id}' , [AllUserController::class, 'UserOrderInvoice']);
+
+    Route::post('/return/order/{order_id}' , [AllUserController::class, 'ReturnOrder'])->name('return.order');
+
+    Route::get('/return/order/page' ,[AllUserController::class,  'ReturnOrderPage'])->name('return.order.page');
+
+    // Order Tracking
+    Route::get('/user/track/order' ,[AllUserController::class,  'UserTrackOrder'])->name('user.track.order');
+    Route::post('/order/tracking' , [AllUserController::class, 'OrderTracking'])->name('order.tracking');
+
+
+});
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [UserController::class, 'UserDashboard'])->name('dashboard');
@@ -113,4 +153,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Frontend Blog Post All Route
+Route::controller(BlogController::class)->group(function(){
+
+    Route::get('/blog' , [BlogController::class, 'AllBlog'])->name('home.blog');
+    Route::get('/post/details/{id}/{slug}' ,[BlogController::class, 'BlogDetails']);
+    Route::get('/post/category/{id}/{slug}' , [BlogController::class,'BlogPostCategory']);
+
+
+});
 require __DIR__.'/auth.php';
