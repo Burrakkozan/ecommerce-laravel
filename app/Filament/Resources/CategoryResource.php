@@ -46,9 +46,21 @@ class CategoryResource extends Resource
                                 }),
                             TextInput::make('slug')->disabled()->required(),
                         ]),
-                    Select::make('id')
-                        ->label('Sub Category')
-                        ->options(SubCategory::all()->pluck('subcategory_name', 'id')),
+
+//                    Select::make('category_id')
+//                        ->label('Category')
+//                        ->options(Category::all()->pluck('category_name', 'id'))
+//                        ->reactive()
+//                        ->afterStateUpdated(fn(callable $set) => $set('category_id', null)),
+
+
+
+//
+//
+//                          Select::make('id')
+//                                ->label(' Sub category')
+//                                ->options(SubCategory::all()->pluck('subcategory_name', 'id')),
+//
                     Forms\Components\FileUpload::make('image')->disk('public')->required(),
 
                 ]),
@@ -63,7 +75,7 @@ class CategoryResource extends Resource
                 Tables\Columns\TextColumn::make('category_name'),
                 Tables\Columns\ImageColumn::make('image')->disk('public'),
                 Tables\Columns\TextColumn::make('slug'),
-//                TextColumn::make('subcategory.subcategory_name')->sortable()->searchable(),
+//             TextColumn::make('subcategory.subcategory_name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

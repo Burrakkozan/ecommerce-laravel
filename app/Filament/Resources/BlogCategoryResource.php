@@ -8,6 +8,8 @@ use App\Models\BlogCategory;
 use App\Models\Category;
 use Closure;
 use Filament\Forms;
+use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -34,7 +36,9 @@ class BlogCategoryResource extends Resource
     {
         return $form
             ->schema([
-
+                Card::make()->schema([
+                    Grid::make(2)
+                        ->schema([
                 TextInput::make('blog_category_name')
                     ->placeholder('Enter blog category name')
                     ->required()
@@ -43,6 +47,26 @@ class BlogCategoryResource extends Resource
                         $set('blog_category_slug', Str::slug($state));
                     }),
                 TextInput::make('blog_category_slug')->disabled()->required(),
+
+              ]),
+                    Forms\Components\Card::make()
+                        ->schema([
+                            Forms\Components\Placeholder::make('created_at')
+                                ->label('Created at')
+                                ->content(fn (BlogCategory $record): ?string => $record->created_at?->diffForHumans()),
+
+                            Forms\Components\Placeholder::make('updated_at')
+                                ->label('Last modified at')
+                                ->content(fn (BlogCategory $record): ?string => $record->updated_at?->diffForHumans()),
+                        ])
+                        ->columnSpan(['lg' => 1])
+                        ->hidden(fn (?BlogCategory $record) => $record === null),
+                    Forms\Components\Toggle::make('status')
+                        ->label('Visible')
+                        ->helperText('This product will be hidden from all sales channels.')
+                        ->default(true),
+                    Forms\Components\FileUpload::make('image')->disk('public')->required(),
+                ]),
             ]);
     }
 
@@ -50,12 +74,19 @@ class BlogCategoryResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')->disk('public')
+                    ->label('Image'),
                 Tables\Columns\TextColumn::make('blog_category_name'),
                 Tables\Columns\TextColumn::make('blog_category_slug'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime(),
+                Tables\Columns\BadgeColumn::make('status')
+                    ->getStateUsing(fn (BlogCategory $record): string => $record->created_at?->isPast() ? 'Created' : 'Draft')
+                    ->colors([
+                        'success' => 'Created',
+                    ]),
             ])
             ->filters([
                 //

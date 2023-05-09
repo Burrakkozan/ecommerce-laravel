@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('blog_category_name');
             $table->string('blog_category_slug');
+            $table->string('image');
+            $table->string('status')->default(0);
             $table->timestamps();
         });
     }

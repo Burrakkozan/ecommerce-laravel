@@ -264,7 +264,7 @@ return [
     |
     */
 
-    'favicon' => null,
+    'favicon' => 'favicon.ico',
 
     /*
     |--------------------------------------------------------------------------
@@ -317,9 +317,8 @@ return [
 
     'middleware' => [
         'auth' => [
-            Role::class,
             Authenticate::class,
-            'verified',
+            Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         ],
         'base' => [
             EncryptCookies::class,

@@ -12,7 +12,11 @@ class Category extends Model
 
 
     protected $table = "categories";
-    protected $guarded = [];
+    protected $fillable = [
+        'category_name',
+        'slug',
+        'image',
+    ];
 
 
 

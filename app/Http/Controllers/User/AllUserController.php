@@ -16,6 +16,7 @@ class AllUserController extends Controller
     public function UserAccount(){
         $id = Auth::user()->id;
         $userData = User::find($id);
+
         return view('frontend.userdashboard.account_details',compact('userData'));
 
     } // End Method
@@ -51,9 +52,13 @@ class AllUserController extends Controller
 
         $pdf = Pdf::loadView('frontend.order.order_invoice', compact('order','orderItem'))->setPaper('a4')->setOption([
             'tempDir' => storage_path(),
-            'chroot' => storage_path(),
+            'chroot' => storage_path()
 
         ]);
+
+
+
+
         return $pdf->download('invoice.pdf');
 
     }// End Method

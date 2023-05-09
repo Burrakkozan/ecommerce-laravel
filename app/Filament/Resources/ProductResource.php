@@ -27,6 +27,7 @@ use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Callable_;
 
 class ProductResource extends Resource
 {
@@ -81,8 +82,11 @@ class ProductResource extends Resource
                     ->schema([
                         Forms\Components\Section::make('Color & Size')
                             ->schema([
-                                TagsInput::make('product_color')->separator(','),
+                                TagsInput::make('product_color')->separator(',')
+                               ->helperText('Type and add a new color tag.'),
                                  TagsInput::make('product_size')->separator(',')
+                                ->helperText('Type and add a new size tag.'),
+
 
 //                                Select::make('product_color')
 //                                    ->multiple()
@@ -129,14 +133,34 @@ class ProductResource extends Resource
                     ->schema([
                         Forms\Components\Section::make('Category')
                             ->schema([
-                                Select::make('category_id')
-                                    ->label('Category')
-                                    ->options(Category::all()->pluck('category_name', 'id'))
-                                    ->required(),
-                                Select::make('subcategory_id')
-                                    ->label('Sub Category')
-                                    ->options(SubCategory::all()->pluck('subcategory_name', 'id'))
-                                    ->required(),
+
+//                                Select::make('category_id')
+//                                    ->label('Category')
+//                                    ->options(Category::all()->pluck('category_name', 'id'))
+//                                    ->required(),
+//                                Select::make('subcategory_id')
+//                                    ->label('Sub Category')
+//                                    ->options(SubCategory::all()->pluck('subcategory_name', 'id'))
+//                                    ->required(),
+
+                            Select::make('category_id')
+                                ->label('Category')
+                                ->options(Category::all()->pluck('category_name', 'id')->toArray())
+                                ->reactive()
+                                ->required()
+                                 ->afterStateUpdated(fn (callable $set) => $set('subcategory_id', null)),
+
+                            Select::make('subcategory_id')
+                                ->label('Sub Category')
+                                ->options(function (callable $get) {
+                                    $category = Category::find($get('category_id'));
+                                    if(!$category) {
+                                        return SubCategory::all()->pluck('subcategory_name', 'id');
+                                    }
+                                    return $category->subcategory->pluck('subcategory_name', 'id');
+                            })
+                                ->helperText('first select category name then select subcategory name')
+
                             ])
                             ->columns(2),
                     ])
@@ -185,6 +209,7 @@ class ProductResource extends Resource
                                 Forms\Components\FileUpload::make('image')->disk('public')->required()
                                     ->label('Main Image')
                                     ->maxSize(3072)
+                                    ->helperText('This image size should be 250x250 for better solution')
                                     ->image()
                                     ->required(),
                                 Forms\Components\FileUpload::make('alt_image')->disk('public')->required()
@@ -215,7 +240,7 @@ class ProductResource extends Resource
                 TextColumn::make('subcategory.subcategory_name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('slug'),
                 Tables\Columns\TextColumn::make('product_name'),
-                Tables\Columns\TextColumn::make('product_detail'),
+                Tables\Columns\TextColumn::make('product_detail')->limit(50),
                 Tables\Columns\TextColumn::make('product_size'),
                 Tables\Columns\TextColumn::make('product_color'),
                 Tables\Columns\IconColumn::make('hot_deals')

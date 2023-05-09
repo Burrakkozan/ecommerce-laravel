@@ -11,8 +11,7 @@ class Product extends Model
     use HasFactory,Sluggable;
 
     protected $table = 'products';
-    protected $guarded = [];
-
+    protected  $guarded = [];
     protected $casts = [
         'hot_deals' => 'boolean',
         'featured' => 'boolean',

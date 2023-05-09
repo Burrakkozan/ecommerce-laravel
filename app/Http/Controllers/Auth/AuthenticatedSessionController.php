@@ -33,6 +33,8 @@ class AuthenticatedSessionController extends Controller
             'alert-type' => 'success'
         );
 
+
+
         return redirect()->intended(RouteServiceProvider::HOME)->with($notification);
     }
 

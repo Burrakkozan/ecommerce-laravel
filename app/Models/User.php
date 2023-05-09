@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use JeffGreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
@@ -41,6 +42,18 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function generateUserName($username){
+        if($username == null){
+            $username = Str::lower(Str::random(8));
+        }
+        if(User::where('username',$username)->exists()){
+            $username = Str::lower(Str::random(3));
+        }
+        return $username;
+    }
+
+
     public function canAccessFilament(): bool
     {
         return $this->hasRole('Admin');
@@ -51,5 +64,6 @@ class User extends Authenticatable implements FilamentUser,MustVerifyEmail
    public function OrderItem(){
         return $this->hasMany(OrderItem::class,'user_id','id');
     }
+
 
 }

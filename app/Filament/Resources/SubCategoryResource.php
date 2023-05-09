@@ -37,9 +37,16 @@ class SubCategoryResource extends Resource
                 Card::make()->schema([
                     Grid::make(2)
                         ->schema([
-//                            Select::make('category_id')
-//                                ->label('category')
-//                                ->options(Category::all()->pluck('category_name', 'id')),
+                            Select::make('category_id')
+                                ->placeholder('Category')
+                                ->options(function (callable $get) {
+                                    return Category::query()
+                                        ->orderBy('category_name')
+                                        ->get()
+                                        ->mapWithKeys(fn (Category $category) => [$category->id => $category->category_name]);
+                                })
+                               ,
+
                             TextInput::make('subcategory_name')
                                 ->placeholder('Name')
                                 ->required()
@@ -57,7 +64,7 @@ class SubCategoryResource extends Resource
     {
         return $table
             ->columns([
-//                TextColumn::make('category.category_name')->sortable()->searchable(),
+                TextColumn::make('category.category_name')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('subcategory_name'),
                 Tables\Columns\TextColumn::make('slug'),
             ])

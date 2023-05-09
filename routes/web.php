@@ -1,18 +1,24 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\frontend\BlogController;
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\frontend\PaymentController;
+use App\Http\Controllers\frontend\ShopController;
 use App\Http\Controllers\frontend\StripeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiteMapController;
+use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\User\AllUserController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\CompareController;
+use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +30,16 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Route::routes(['verify' => true]);
+
 Route::get('/', [IndexController::class, 'Index']);
+
+
+Route::get('/auth/{provider}/redirect', [ProviderController::class, 'redirect']);
+
+Route::get('/auth/{provider}/callback', [ProviderController::class, 'callback']);
+
+
 
 /// Frontend Product Details All Route
 Route::get('/product/details/{id}/{slug}', [IndexController::class, 'ProductDetails']);
@@ -34,6 +49,21 @@ Route::get('/product/subcategory/{id}/{slug}', [IndexController::class, 'SubCatW
 Route::get('/product/view/modal/{id}', [IndexController::class, 'ProductViewAjax']);
 /// Frontend Product Details All Route End
 
+// Search All Route
+Route::controller(IndexController::class)->group(function(){
+
+    Route::post('/search' , [IndexController::class,'ProductSearch'])->name('product.search');
+    Route::post('/search-product' ,[IndexController::class, 'SearchProduct']);
+
+});
+
+// Shop Page All Route
+Route::controller(ShopController::class)->group(function(){
+
+    Route::get('/shop' , [ShopController::class, 'ShopPage'])->name('shop.page');
+    Route::post('/shop/filter' , [ShopController::class, 'ShopFilter'])->name('shop.filter');
+
+});
 
 
 // CART ROUTE
@@ -74,7 +104,7 @@ Route::controller(CartController::class)->group(function(){
 
 });
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth',])->group(function() {
 
     // Wishlist All Route
     Route::controller(WishlistController::class)->group(function () {
@@ -106,32 +136,32 @@ Route::middleware(['auth'])->group(function() {
 
 
     });
+// User Dashboard All Route
+    Route::controller(AllUserController::class)->group(function(){
+        Route::get('/user/account/page' ,[AllUserController::class,  'UserAccount'])->name('user.account.page');
+        Route::get('/user/change/password' , [AllUserController::class, 'UserChangePassword'])->name('user.change.password');
 
+        Route::get('/user/order/page' ,[AllUserController::class,  'UserOrderPage'])->name('user.order.page');
+
+        Route::get('/user/order_details/{order_id}' ,[AllUserController::class,  'UserOrderDetails']);
+        Route::get('/user/invoice_download/{order_id}' , [AllUserController::class, 'UserOrderInvoice']);
+
+        Route::post('/return/order/{order_id}' , [AllUserController::class, 'ReturnOrder'])->name('return.order');
+
+        Route::get('/return/order/page' ,[AllUserController::class,  'ReturnOrderPage'])->name('return.order.page');
+
+        // Order Tracking
+        Route::get('/user/track/order' ,[AllUserController::class,  'UserTrackOrder'])->name('user.track.order');
+        Route::post('/order/tracking' , [AllUserController::class, 'OrderTracking'])->name('order.tracking');
+
+
+    });
 
 }); // Gorup Milldeware End
 
-// User Dashboard All Route
-Route::controller(AllUserController::class)->group(function(){
-    Route::get('/user/account/page' ,[AllUserController::class,  'UserAccount'])->name('user.account.page');
-    Route::get('/user/change/password' , [AllUserController::class, 'UserChangePassword'])->name('user.change.password');
-
-    Route::get('/user/order/page' ,[AllUserController::class,  'UserOrderPage'])->name('user.order.page');
-
-    Route::get('/user/order_details/{order_id}' ,[AllUserController::class,  'UserOrderDetails']);
-    Route::get('/user/invoice_download/{order_id}' , [AllUserController::class, 'UserOrderInvoice']);
-
-    Route::post('/return/order/{order_id}' , [AllUserController::class, 'ReturnOrder'])->name('return.order');
-
-    Route::get('/return/order/page' ,[AllUserController::class,  'ReturnOrderPage'])->name('return.order.page');
-
-    // Order Tracking
-    Route::get('/user/track/order' ,[AllUserController::class,  'UserTrackOrder'])->name('user.track.order');
-    Route::post('/order/tracking' , [AllUserController::class, 'OrderTracking'])->name('order.tracking');
 
 
-});
-
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth','verified'])->group(function() {
     Route::get('/dashboard', [UserController::class, 'UserDashboard'])->name('dashboard');
     Route::post('/user/profile/store', [UserController::class, 'UserProfileStore'])->name('user.profile.store');
     Route::get('/user/logout', [UserController::class, 'UserLogout'])->name('user.logout');
@@ -147,7 +177,7 @@ Route::middleware(['auth'])->group(function() {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth','verified')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -162,4 +192,12 @@ Route::controller(BlogController::class)->group(function(){
 
 
 });
+
+// Frontend Blog Post All Route
+Route::controller(ReviewController::class)->group(function(){
+
+    Route::post('/store/review' ,[ReviewController::class, 'StoreReview'])->name('store.review');
+
+});
+
 require __DIR__.'/auth.php';

@@ -10,9 +10,9 @@
                     <div class="header-info">
                         <ul>
 
-                            <li><a href="page-account.html">My Cart</a></li>
-                            <li><a href="shop-wishlist.html">Checkout</a></li>
-                            <li><a href="shop-order.html">Order Tracking</a></li>
+                            <li><a href="{{route('mycart')}}">My Cart</a></li>
+                            <li><a href="{{route('checkout')}}">Checkout</a></li>
+                            <li><a href="{{route('order.tracking')}}">Order Tracking</a></li>
                         </ul>
                     </div>
                 </div>
@@ -32,18 +32,18 @@
                         <ul>
 
                             <li>
-                                <a class="language-dropdown-active" href="#">English <i class="fi-rs-angle-small-down"></i></a>
-                                <ul class="language-dropdown">
-                                    <li>
-                                        <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/flag-fr.png') }}" alt="" />Français</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/flag-dt.png') }}" alt="" />Deutsch</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/flag-ru.png') }}" alt="" />Pусский</a>
-                                    </li>
-                                </ul>
+{{--                                <a class="language-dropdown-active" href="#">English <i class="fi-rs-angle-small-down"></i></a>--}}
+{{--                                <ul class="language-dropdown">--}}
+{{--                                    <li>--}}
+{{--                                        <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/flag-fr.png') }}" alt="" />Français</a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/flag-dt.png') }}" alt="" />Deutsch</a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/flag-ru.png') }}" alt="" />Pусский</a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
                             </li>
 
                             <li>Need help? Call Us: <strong class="text-brand"> + 1800 900</strong></li>
@@ -54,33 +54,35 @@
             </div>
         </div>
     </div>
-{{--    @php--}}
-{{--        $setting = App\Models\SiteSetting::find(1);--}}
-{{--    @endphp--}}
+
+
+    @php
+
+        $categories = App\Models\Category::orderBy('category_name','ASC')->get();
+    @endphp
+
+
     <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-{{--                    <a href="index.html"><img src="{{ asset($setting->logo)   }}" alt="logo" /></a>--}}
+                    <a href="{{ url('/') }}"><img src="{{ asset('frontend/logos.svg') }}" alt="logo" /></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
 
-                        <form action="" method="post">
+                        <form action="{{ route('product.search') }}" method="post">
                             @csrf
 
-                            <select class="select-active">
+                            <select class="select-active" >
                                 <option>All Categories</option>
-                                <option>Milks and Dairies</option>
-                                <option>Wines & Alcohol</option>
-                                <option>Clothing & Beauty</option>
-                                <option>Pet Foods & Toy</option>
-                                <option>Fast food</option>
-                                <option>Baking material</option>
-                                <option>Vegetables</option>
-                                <option>Fresh Seafood</option>
-                                <option>Noodles & Rice</option>
-                                <option>Ice cream</option>
+                                @foreach($categories as $item)
+                                    @if($loop->index < 5)
+                                        <option value="{{ url('product/category/'.$item->id.'/'.$item->category_slug) }}">
+                                            <a href="{{ url('product/category/'.$item->id.'/'.$item->category_slug) }}">{{ $item->category_name }} </a>
+                                        </option>
+                                    @endif
+                                @endforeach
                             </select>
                             <input onfocus="search_result_show()" onblur="search_result_hide()" name="search" id="search" placeholder="Search for items..." />
                             <div id="searchProducts"></div>
@@ -88,26 +90,26 @@
                     </div>
                     <div class="header-action-right">
                         <div class="header-action-2">
-                            <div class="search-location">
-                                <form action="#">
-                                    <select class="select-active">
-                                        <option>Your Location</option>
-                                        <option>Alabama</option>
-                                        <option>Alaska</option>
-                                        <option>Arizona</option>
-                                        <option>Delaware</option>
-                                        <option>Florida</option>
-                                        <option>Georgia</option>
-                                        <option>Hawaii</option>
-                                        <option>Indiana</option>
-                                        <option>Maryland</option>
-                                        <option>Nevada</option>
-                                        <option>New Jersey</option>
-                                        <option>New Mexico</option>
-                                        <option>New York</option>
-                                    </select>
-                                </form>
-                            </div>
+{{--                            <div class="search-location">--}}
+{{--                                <form action="#">--}}
+{{--                                    <select class="select-active">--}}
+{{--                                        <option>Your Location</option>--}}
+{{--                                        <option>Alabama</option>--}}
+{{--                                        <option>Alaska</option>--}}
+{{--                                        <option>Arizona</option>--}}
+{{--                                        <option>Delaware</option>--}}
+{{--                                        <option>Florida</option>--}}
+{{--                                        <option>Georgia</option>--}}
+{{--                                        <option>Hawaii</option>--}}
+{{--                                        <option>Indiana</option>--}}
+{{--                                        <option>Maryland</option>--}}
+{{--                                        <option>Nevada</option>--}}
+{{--                                        <option>New Jersey</option>--}}
+{{--                                        <option>New Mexico</option>--}}
+{{--                                        <option>New York</option>--}}
+{{--                                    </select>--}}
+{{--                                </form>--}}
+{{--                            </div>--}}
 
                             <div class="header-action-icon-2">
                                 <a href="{{ route('compare') }}">
@@ -128,7 +130,7 @@
 
 
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="{{route('mycart')}}">
                                     <img alt="Nest" src="{{ asset('frontend/assets/imgs/theme/icons/icon-cart.svg') }}" />
                                     <span class="pro-count blue" id="cartQty">0</span>
                                 </a>
@@ -152,8 +154,8 @@
                                             <h4>Total <span id="cartSubTotal"> </span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html" class="outline">View cart</a>
-                                            <a href="shop-checkout.html">Checkout</a>
+                                            <a href="{{route('mycart')}}" class="outline">View cart</a>
+                                            <a href="{{route('checkout')}}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -165,13 +167,13 @@
 
 
                             <div class="header-action-icon-2">
-                                <a href="page-account.html">
+                                <a href="{{ route('dashboard') }}">
                                     <img class="svgInject" alt="Nest" src="{{ asset('frontend/assets/imgs/theme/icons/icon-user.svg') }}" />
                                 </a>
 
 
                                 @auth
-                                    <a href="page-account.html"><span class="lable ml-0">Account</span></a>
+                                    <a href="{{ route('dashboard') }}"><span class="lable ml-0">Account</span></a>
                                     <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                         <ul>
                                             <li>
@@ -230,7 +232,7 @@
         <div class="container">
             <div class="header-wrap header-space-between position-relative">
                 <div class="logo logo-width-1 d-block d-lg-none">
-                    <a href="index.html"><img src="{{ asset('frontend/assets/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                    <a href="{{ url('/') }}"><img src="{{ asset('frontend/logo.svg') }}" alt="logo" /></a>
                 </div>
                 <div class="header-nav d-none d-lg-flex">
                     <div class="main-categori-wrap d-none d-lg-block">
@@ -263,20 +265,22 @@
                             <div class="more_slide_open" style="display: none">
                                 <div class="d-flex categori-dropdown-inner">
                                     <ul>
-                                        <li>
-                                            <a href="shop-grid-right.html"> <img src="{{ asset('frontend/assets/imgs/theme/icons/icon-1.svg') }}" alt="" />Milks and Dairies</a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-grid-right.html"> <img src="{{ asset('frontend/assets/imgs/theme/icons/icon-2.svg') }}" alt="" />Clothing & beauty</a>
-                                        </li>
+                                        @foreach($categories as $item)
+                                            @if($loop->index < 5)
+                                                <li>
+                                                    <a href="{{ url('product/category/'.$item->id.'/'.$item->category_slug) }}"> <img src="{{ asset( 'storage/'.$item->image ) }}" alt="" /> {{ $item->category_name }} </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
                                     </ul>
                                     <ul class="end">
-                                        <li>
-                                            <a href="shop-grid-right.html"> <img src="{{ asset('frontend/assets/imgs/theme/icons/icon-3.svg') }}" alt="" />Wines & Drinks</a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-grid-right.html"> <img src="{{ asset('frontend/assets/imgs/theme/icons/icon-4.svg') }}" alt="" />Fresh Seafood</a>
-                                        </li>
+                                        @foreach($categories as $item)
+                                            @if($loop->index > 4)
+                                                <li>
+                                                    <a href="{{ url('product/category/'.$item->id.'/'.$item->slug) }}"> <img src="{{ asset('storage/'. $item->image ) }}" alt="" /> {{ $item->category_name }} </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
@@ -297,17 +301,20 @@
                                     $categories = App\Models\Category::orderBy('category_name','ASC')->limit(4)->get();
                                 @endphp
 
+
                                 @foreach($categories as $category)
                                     <li>
                                         <a href="{{ url('product/category/'.$category->id.'/'.$category->slug) }}">{{ $category->category_name }} <i class="fi-rs-angle-down"></i></a>
 
                                         @php
-                                            $subcategories = App\Models\SubCategory::where('id',$category->id)->orderBy('subcategory_name','ASC')->get();
+                                            $subcategories = App\Models\SubCategory::where('category_id',$category->id)->orderBy('subcategory_name','ASC')->get();
+
                                         @endphp
+
 
                                         <ul class="sub-menu">
                                             @foreach($subcategories as $subcategory)
-                                                <li><a href="{{ url('product/subcategory/'.$subcategory->id.'/'.$subcategory->slug) }}">{{ $subcategory->subcategory_name }}</a></li>
+                                                <li><a href="{{ url('product/subcategory/'.$subcategory->category_id.'/'.$subcategory->slug) }}">{{ $subcategory->subcategory_name }}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>
@@ -318,9 +325,9 @@
                                 <li>
                                     <a href="{{ route('home.blog') }}">Blog</a>
                                 </li>
-{{--                                <li>--}}
-{{--                                    <a href="{{ route('shop.page') }}">Shop</a>--}}
-{{--                                </li>--}}
+                                <li>
+                                    <a href="{{ route('shop.page') }}">Shop</a>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -329,7 +336,7 @@
 
                 <div class="hotline d-none d-lg-flex">
                     <img src="{{ asset('frontend/assets/imgs/theme/icons/icon-headphone.svg') }}" alt="hotline" />
-{{--                    <p>{{ $setting->support_phone }}<span>24/7 Support Center</span></p>--}}
+                    <p>1900 - 888<span>24/7 Support Center</span></p>
                 </div>
                 <div class="header-action-icon-2 d-block d-lg-none">
                     <div class="burger-icon burger-icon-white">
@@ -341,16 +348,16 @@
                 <div class="header-action-right d-block d-lg-none">
                     <div class="header-action-2">
                         <div class="header-action-icon-2">
-                            <a href="shop-wishlist.html">
+                            <a href="{{route('wishlist')}}">
                                 <img alt="Nest" src="{{ asset('frontend/assets/imgs/theme/icons/icon-heart.svg') }}" />
-                                <span class="pro-count white">4</span>
+                                <span class="pro-count white">0</span>
                             </a>
 
                         </div>
                         <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="#">
+                            <a class="mini-cart-icon" href="{{route('mycart')}}">
                                 <img alt="Nest" src="{{ asset('frontend/assets/imgs/theme/icons/icon-cart.svg') }}" />
-                                <span class="pro-count blue" id="cartQty"> </span>
+                                <span class="pro-count blue" id="cartQty"> 0</span>
                             </a>
                             <div class="cart-dropdown-wrap cart-dropdown-hm2">
 
@@ -364,12 +371,12 @@
                                 <div class="shopping-cart-footer">
                                     <div class="shopping-cart-total">
                                         <h4>Total <span id="cartSubTotal">$</span>
-                                            <span id="cartSubTotal"></span>
+{{--                                            <span id="cartSubTotal">$</span>--}}
                                         </h4>
                                     </div>
                                     <div class="shopping-cart-button">
-                                        <a href="shop-cart.html">View cart</a>
-                                        <a href="shop-checkout.html">Checkout</a>
+                                        <a href="{{route('mycart')}}">View cart</a>
+                                        <a href="{{route('checkout')}}">Checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -381,37 +388,37 @@
     </div>
 </header>
 
-{{--<!-- End Header  -->--}}
-{{--<style>--}}
-{{--    #searchProducts{--}}
-{{--        position: absolute;--}}
-{{--        top: 100%;--}}
-{{--        left: 0;--}}
-{{--        width: 100%;--}}
-{{--        background: #ffffff;--}}
-{{--        z-index: 999;--}}
-{{--        border-radius: 8px;--}}
-{{--        margin-top: 5px;--}}
-{{--    }--}}
-{{--</style>--}}
+<!-- End Header  -->
+<style>
+    #searchProducts{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        z-index: 999;
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+</style>
 
-{{--<script>--}}
-{{--    function search_result_show(){--}}
-{{--        $("#searchProducts").slideDown();--}}
+<script>
+    function search_result_show(){
+        $("#searchProducts").slideDown();
 
-{{--    }--}}
+    }
 
-{{--    function search_result_hide(){--}}
-{{--        $("#searchProducts").slideUp();--}}
-{{--    }--}}
-{{--</script>--}}
+    function search_result_hide(){
+        $("#searchProducts").slideUp();
+    }
+</script>
 
 
 <div class="mobile-header-active mobile-header-wrapper-style">
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="index.html"><img src="{{ asset('frontend/assets/imgs/theme/logo.svg') }}" alt="logo" /></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('frontend/logo.svg') }}" alt="logo" /></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -423,8 +430,8 @@
         <div class="mobile-header-content-area">
             <div class="mobile-search search-style-3 mobile-header-border">
                 <form action="#">
-                    <input type="text" placeholder="Search for items…" />
-                    <button type="submit"><i class="fi-rs-search"></i></button>
+{{--                    <input type="text" placeholder="Search for items…" />--}}
+{{--                    <button type="submit"><i class="fi-rs-search"></i></button>--}}
                 </form>
             </div>
             <div class="mobile-menu-wrap mobile-header-border">
@@ -432,117 +439,54 @@
                 <nav>
                     <ul class="mobile-menu font-heading">
                         <li class="menu-item-has-children">
-                            <a href="index.html">Home</a>
+                            <a href="{{ url('/') }}">Home</a>
 
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="shop-grid-right.html">shop</a>
+                            <a href="{{ route('shop.page') }}">shop</a>
                             <ul class="dropdown">
-                                <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
-                                <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
-                                <li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
-                                <li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
-                                <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Single Product</a>
-                                    <ul class="dropdown">
-                                        <li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
-                                        <li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
-                                        <li><a href="shop-product-full.html">Product – No sidebar</a></li>
-                                        <li><a href="shop-product-vendor.html">Product – Vendor Infor</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="shop-filter.html">Shop – Filter</a></li>
-                                <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
-                                <li><a href="shop-cart.html">Shop – Cart</a></li>
-                                <li><a href="shop-checkout.html">Shop – Checkout</a></li>
-                                <li><a href="shop-compare.html">Shop – Compare</a></li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Shop Invoice</a>
-                                    <ul class="dropdown">
-                                        <li><a href="shop-invoice-1.html">Shop Invoice 1</a></li>
-                                        <li><a href="shop-invoice-2.html">Shop Invoice 2</a></li>
-                                        <li><a href="shop-invoice-3.html">Shop Invoice 3</a></li>
-                                        <li><a href="shop-invoice-4.html">Shop Invoice 4</a></li>
-                                        <li><a href="shop-invoice-5.html">Shop Invoice 5</a></li>
-                                        <li><a href="shop-invoice-6.html">Shop Invoice 6</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="{{route('wishlist')}}">Wishlist</a></li>
+                                <li><a href="{{route('mycart')}}">Shop – Cart</a></li>
+                                <li><a href="{{route('checkout')}}">Checkout</a></li>
+                                <li><a href="{{route('compare')}}">Shop – Compare</a></li>
                             </ul>
                         </li>
 
                         <li class="menu-item-has-children">
-                            <a href="#">Mega menu</a>
+                            <a href="#">Category</a>
                             <ul class="dropdown">
-                                <li class="menu-item-has-children">
-                                    <a href="#">Women's Fashion</a>
-                                    <ul class="dropdown">
-                                        <li><a href="shop-product-right.html">Dresses</a></li>
-                                        <li><a href="shop-product-right.html">Blouses & Shirts</a></li>
-                                        <li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
-                                        <li><a href="shop-product-right.html">Women's Sets</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Men's Fashion</a>
-                                    <ul class="dropdown">
-                                        <li><a href="shop-product-right.html">Jackets</a></li>
-                                        <li><a href="shop-product-right.html">Casual Faux Leather</a></li>
-                                        <li><a href="shop-product-right.html">Genuine Leather</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Technology</a>
-                                    <ul class="dropdown">
-                                        <li><a href="shop-product-right.html">Gaming Laptops</a></li>
-                                        <li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
-                                        <li><a href="shop-product-right.html">Tablets</a></li>
-                                        <li><a href="shop-product-right.html">Laptop Accessories</a></li>
-                                        <li><a href="shop-product-right.html">Tablet Accessories</a></li>
-                                    </ul>
-                                </li>
+
+
+                                        @foreach($categories as $item)
+                                            @if($loop->index < 5)
+                                                <li>
+                                                    <a href="{{ url('product/category/'.$item->id.'/'.$item->category_slug) }}"> <img src="{{ asset( 'storage/'.$item->image ) }}" alt=""style="width:20px;height:20px"  /> {{ $item->category_name }}  </a>
+                                                </li>
+                                            @endif
+                                        @endforeach
+
+
+
                             </ul>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="blog-category-fullwidth.html">Blog</a>
+                            <a href="{{route('home.blog')}}">Blog</a>
                             <ul class="dropdown">
-                                <li><a href="blog-category-grid.html">Blog Category Grid</a></li>
-                                <li><a href="blog-category-list.html">Blog Category List</a></li>
-                                <li><a href="blog-category-big.html">Blog Category Big</a></li>
-                                <li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
-                                <li class="menu-item-has-children">
-                                    <a href="#">Single Product Layout</a>
-                                    <ul class="dropdown">
-                                        <li><a href="blog-post-left.html">Left Sidebar</a></li>
-                                        <li><a href="blog-post-right.html">Right Sidebar</a></li>
-                                        <li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="{{route('home.blog')}}">Blog </a></li>
+
+
                             </ul>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="#">Pages</a>
                             <ul class="dropdown">
-                                <li><a href="page-about.html">About Us</a></li>
-                                <li><a href="page-contact.html">Contact</a></li>
-                                <li><a href="page-account.html">My Account</a></li>
-                                <li><a href="page-login.html">Login</a></li>
-                                <li><a href="page-register.html">Register</a></li>
-                                <li><a href="page-forgot-password.html">Forgot password</a></li>
-                                <li><a href="page-reset-password.html">Reset password</a></li>
-                                <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
-                                <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
-                                <li><a href="page-terms.html">Terms of Service</a></li>
-                                <li><a href="page-404.html">404 Page</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">Language</a>
-                            <ul class="dropdown">
-                                <li><a href="#">English</a></li>
-                                <li><a href="#">French</a></li>
-                                <li><a href="#">German</a></li>
-                                <li><a href="#">Spanish</a></li>
+{{--                                <li><a href="page-about.html">About Us</a></li>--}}
+{{--                                <li><a href="page-contact.html">Contact</a></li>--}}
+                                <li><a href="{{ route('dashboard') }}">My Account</a></li>
+                                <li><a href="{{ route('login') }}">Login</a></li>
+                                <li><a href="{{ route('register') }}">Register</a></li>
+{{--                                <li><a href="page-privacy-policy.html">Privacy Policy</a></li>--}}
+{{--                                <li><a href="page-terms.html">Terms of Service</a></li>--}}
                             </ul>
                         </li>
                     </ul>
@@ -551,13 +495,13 @@
             </div>
             <div class="mobile-header-info-wrap">
                 <div class="single-mobile-header-info">
-                    <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>
+{{--                    <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>--}}
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="page-login.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
+                    <a href="{{ route('login') }}"><i class="fi-rs-user"></i>Log In / Sign Up </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>
+{{--                    <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>--}}
                 </div>
             </div>
             <div class="mobile-social-icon mb-50">
@@ -568,7 +512,7 @@
                 <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-pinterest-white.svg') }}" alt="" /></a>
                 <a href="#"><img src="{{ asset('frontend/assets/imgs/theme/icons/icon-youtube-white.svg') }}" alt="" /></a>
             </div>
-            <div class="site-copyright">Copyright 2022 © Nest. All rights reserved. Powered by AliThemes.</div>
+            <div class="site-copyright">Copyright 2023 © Burakozcan.</div>
         </div>
     </div>
 </div>

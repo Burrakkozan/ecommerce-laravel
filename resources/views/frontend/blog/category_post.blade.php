@@ -1,5 +1,6 @@
 @extends('frontend.master_dashboard')
 @section('title')
+
     @foreach($breadcat as $cat)
         {{ $cat->blog_category_name }}
     @endforeach

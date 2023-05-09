@@ -12,7 +12,12 @@ class SubCategory extends Model
 
 
     protected $table = "sub_categories";
-    protected $guarded = [];
+
+    protected $fillable = [
+        'subcategory_name',
+        'category_id',
+        'slug',
+    ];
     public $timestamps = false;
     public function sluggable(): array
     {

@@ -114,8 +114,8 @@ class BlogPostResource extends Resource
                     ]),
                 Tables\Columns\TextColumn::make('post_title'),
                 Tables\Columns\TextColumn::make('post_slug'),
-                Tables\Columns\TextColumn::make('post_short_description'),
-                Tables\Columns\TextColumn::make('post_long_description'),
+                Tables\Columns\TextColumn::make('post_short_description')->limit(20),
+                Tables\Columns\TextColumn::make('post_long_description')->limit(20),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

@@ -1,4 +1,9 @@
 @extends('frontend.master_dashboard')
+@section('title' )
+    Home easy online shop
+@endsection
+
+
 @section('main')
 
     @include('frontend.home.home_slider')
@@ -41,7 +46,7 @@
 
                         @foreach($skip_product_0 as $product)
                             <div class="col-lg-1-5 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s">
+                                <div class="product-cart-wrap mb-30 wow animate__animated animate__fadeIn" data-wow-delay=".1s" >
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}">
@@ -78,28 +83,37 @@
                                     <div class="product-content-wrap">
                                         <div class="product-category">
                                             @if ($product->category_id == NULL)
-                                                <a href="shop-grid-right.html">Uncategorized</a>
+                                                <a href="{{route('shop.page')}}">Uncategorized</a>
                                             @else
-                                                <a href="shop-grid-right.html">{{ $product['category']['category_name'] }}</a>
+                                                <a href="">{{ $product['category']['category_name'] }}</a>
                                             @endif
-                                            <a href="shop-grid-right.html"></a>
+                                            <a href="{{route('shop.page')}}"></a>
                                         </div>
                                         <h2><a href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"> {{ $product->product_name }} </a></h2>
+                                        @php
+                                            $reviewcount = App\Models\Review::where('product_id',$product->id)->where('status',1)->latest()->get();
+
+                                            $avarage = App\Models\Review::where('product_id',$product->id)->where('status',1)->avg('rating');
+                                        @endphp
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
+                                                @if($avarage == NULL)
+                                                    <div class="product-rating" style="width: 0%"></div>
+                                                @elseif($avarage == 1 || $avarage < 2)
+                                                    <div class="product-rating" style="width: 20%"></div>
+                                                @elseif($avarage == 2 || $avarage < 3)
+                                                    <div class="product-rating" style="width: 40%"></div>
+                                                @elseif($avarage == 3 || $avarage < 4)
+                                                    <div class="product-rating" style="width: 60%"></div>
+                                                @elseif($avarage == 4 || $avarage < 5)
+                                                    <div class="product-rating" style="width: 80%"></div>
+                                                @elseif($avarage == 5 || $avarage < 5)
+                                                    <div class="product-rating" style="width: 100%"></div>
+                                                @endif
                                             </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            <span class="font-small ml-5 text-muted"> ({{count($reviewcount)}})</span>
                                         </div>
                                         <div>
-{{--                                            @if($product->vendor_id == NULL)--}}
-{{--                                                <span class="font-small text-muted">By <a href="vendor-details-1.html">Owner</a></span>--}}
-{{--                                            @else--}}
-{{--                                                <span class="font-small text-muted">By <a href="vendor-details-1.html">{{ $product['vendor']['name'] }}</a></span>--}}
-
-{{--                                            @endif--}}
-
-
 
                                         </div>
                                         <div class="product-card-bottom">
@@ -120,7 +134,8 @@
 
 
                                             <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <button type="submit" class="add" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+{{--                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>--}}
                                             </div>
                                         </div>
                                     </div>
@@ -198,15 +213,33 @@
                                         </div>
                                     </div>
                                     <div class="product-content-wrap">
-                                        <div class="product-category">
-                                            <a href="shop-grid-right.html">{{ $product['category']['category_name'] }}</a>
-                                        </div>
+                                            <div class="product-category">
+                                                <a href="">{{ $product['category']['category_name'] }}</a>
+                                            </div>
+
                                         <h2><a href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"> {{ $product->product_name }} </a></h2>
+                                        @php
+                                            $reviewcount = App\Models\Review::where('product_id',$product->id)->where('status',1)->latest()->get();
+
+                                            $avarage = App\Models\Review::where('product_id',$product->id)->where('status',1)->avg('rating');
+                                        @endphp
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
+                                                @if($avarage == NULL)
+                                                    <div class="product-rating" style="width: 0%"></div>
+                                                @elseif($avarage == 1 || $avarage < 2)
+                                                    <div class="product-rating" style="width: 20%"></div>
+                                                @elseif($avarage == 2 || $avarage < 3)
+                                                    <div class="product-rating" style="width: 40%"></div>
+                                                @elseif($avarage == 3 || $avarage < 4)
+                                                    <div class="product-rating" style="width: 60%"></div>
+                                                @elseif($avarage == 4 || $avarage < 5)
+                                                    <div class="product-rating" style="width: 80%"></div>
+                                                @elseif($avarage == 5 || $avarage < 5)
+                                                    <div class="product-rating" style="width: 100%"></div>
+                                                @endif
                                             </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            <span class="font-small ml-5 text-muted"> ({{count($reviewcount)}})</span>
                                         </div>
                                         <div>
 {{--                                            @if($product->vendor_id == NULL)--}}
@@ -237,7 +270,7 @@
 
 
                                             <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <button type="submit" class="add" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                             </div>
                                         </div>
                                     </div>
@@ -318,14 +351,32 @@
                                     </div>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="shop-grid-right.html">{{ $product['category']['category_name'] }}</a>
+                                            <a href="">{{ $product['category']['category_name'] }}</a>
                                         </div>
+
                                         <h2><a href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"> {{ $product->product_name }} </a></h2>
+                                        @php
+                                            $reviewcount = App\Models\Review::where('product_id',$product->id)->where('status',1)->latest()->get();
+
+                                            $avarage = App\Models\Review::where('product_id',$product->id)->where('status',1)->avg('rating');
+                                        @endphp
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
-                                                <div class="product-rating" style="width: 90%"></div>
+                                                @if($avarage == NULL)
+                                                    <div class="product-rating" style="width: 0%"></div>
+                                                @elseif($avarage == 1 || $avarage < 2)
+                                                    <div class="product-rating" style="width: 20%"></div>
+                                                @elseif($avarage == 2 || $avarage < 3)
+                                                    <div class="product-rating" style="width: 40%"></div>
+                                                @elseif($avarage == 3 || $avarage < 4)
+                                                    <div class="product-rating" style="width: 60%"></div>
+                                                @elseif($avarage == 4 || $avarage < 5)
+                                                    <div class="product-rating" style="width: 80%"></div>
+                                                @elseif($avarage == 5 || $avarage < 5)
+                                                    <div class="product-rating" style="width: 100%"></div>
+                                                @endif
                                             </div>
-                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                            <span class="font-small ml-5 text-muted"> ({{count($reviewcount)}})</span>
                                         </div>
                                         <div>
 {{--                                            @if($product->vendor_id == NULL)--}}
@@ -356,7 +407,7 @@
 
 
                                             <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <button type="submit" class="add" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                             </div>
                                         </div>
                                     </div>
@@ -560,11 +611,5 @@
     <!--End 4 columns-->
 
 
-
-{{--    <!--Vendor List -->--}}
-
-{{--    @include('frontend.home.home_vendor_list')--}}
-
-{{--    <!--End Vendor List -->--}}
 
 @endsection
