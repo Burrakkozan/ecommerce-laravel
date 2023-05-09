@@ -17,9 +17,14 @@ use App\Http\Controllers\User\CompareController;
 use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\WishlistController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Laravel\Socialite\Facades\Socialite;
 
+if (App::environment('production')) {
+    URL::forceScheme('https');
+}
 /*
 |--------------------------------------------------------------------------
 | Web Routes
