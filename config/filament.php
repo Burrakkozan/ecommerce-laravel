@@ -264,11 +264,12 @@ return [
     |
     */
 
-    'favicon' => 'favicon.ico',
+    'favicon' => '/administrator.png',
 
     /*
     |--------------------------------------------------------------------------
-    | Default Avatar Provider
+    | Default Avata 'favicon' => 'public/favicon.ico',
+r Provider
     |--------------------------------------------------------------------------
     |
     | This is the service that will be used to retrieve default avatars if one
