@@ -13,7 +13,7 @@
                         <div class="col-xl-3">
                             <h5 class="mb-15"> Shop Page </h5>
                             <div class="breadcrumb">
-                                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                                <a href="{{url('/')}}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                                 <span></span>  Shop Page
                             </div>
                         </div>
@@ -168,7 +168,7 @@
 
 
                     <div class="add-cart">
-                        <a class="add" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </a>
+                        <button class="add" onclick="addToCart()"href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </button>
                     </div>
                 </div>
             </div>

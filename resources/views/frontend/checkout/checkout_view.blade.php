@@ -9,7 +9,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <a href="{{url('/')}}" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                 <span></span> Checkout
             </div>
         </div>
@@ -101,7 +101,7 @@
                                     <td class="image product-thumbnail"><img src="{{ asset('storage/'.$item->options->image) }} "
                                                                              alt="#" style="width:50px; height: 50px;"></td>
                                     <td>
-                                        <h6 class="w-160 mb-5"><a href="shop-product-full.html"
+                                        <h6 class="w-160 mb-5"><a href="{{route('shop.page')}}"
                                                                   class="text-heading">{{ $item->name }}</a></h6></span>
                                         <div class="product-rate-cover">
 

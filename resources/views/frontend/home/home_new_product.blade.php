@@ -111,7 +111,7 @@
 
 
                                         <div class="add-cart">
-                                            <button type="submit" class="button button-add-to-cart" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                            <button type="submit" class="button button-add-to-cart" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +223,7 @@
 
 
                                             <div class="add-cart">
-                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <button class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                             </div>
                                         </div>
                                     </div>

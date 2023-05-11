@@ -134,7 +134,7 @@
 
 
                                             <div class="add-cart">
-                                                <button type="submit" class="add" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
 {{--                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>--}}
                                             </div>
                                         </div>
@@ -270,7 +270,7 @@
 
 
                                             <div class="add-cart">
-                                                <button type="submit" class="add" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                             </div>
                                         </div>
                                     </div>
@@ -407,7 +407,7 @@
 
 
                                             <div class="add-cart">
-                                                <button type="submit" class="add" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                             </div>
                                         </div>
                                     </div>
