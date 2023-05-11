@@ -79,10 +79,10 @@ class IndexController extends Controller
         OpenGraph::addProperty('locale', 'tr-TR');
         OpenGraph::addProperty('locale:alternate', ['en-us']);
 
-        OpenGraph::addImage($product->cover->url);
-        OpenGraph::addImage($product->image->url, ['height' => 300, 'width' => 300]);
-        OpenGraph::addImage(assets('frontend/assets/logos.svg')); //change image dimensions
-        OpenGraph::addImage(assets('frontend/assets/logos.svg'), ['height' => 300, 'width' => 300]);
+//        OpenGraph::addImage($product->cover->url);
+//        OpenGraph::addImage($product->image->url, ['height' => 300, 'width' => 300]);
+//        OpenGraph::addImage(assets('frontend/assets/logos.svg')); //change image dimensions
+//        OpenGraph::addImage(assets('frontend/assets/logos.svg'), ['height' => 300, 'width' => 300]);
 
 
 
