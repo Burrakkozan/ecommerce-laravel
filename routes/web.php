@@ -2,12 +2,12 @@
 
 
 use App\Http\Controllers\Auth\ProviderController;
-use App\Http\Controllers\frontend\BlogController;
+use App\Http\Controllers\Frontend\BlogController;
 
-use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
-use App\Http\Controllers\frontend\ShopController;
-use App\Http\Controllers\frontend\StripeController;
+use App\Http\Controllers\Frontend\ShopController;
+use App\Http\Controllers\Frontend\StripeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\AllUserController;
 use App\Http\Controllers\User\CheckoutController;
