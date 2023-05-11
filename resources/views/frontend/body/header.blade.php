@@ -418,7 +418,7 @@
     <div class="mobile-header-wrapper-inner">
         <div class="mobile-header-top">
             <div class="mobile-header-logo">
-                <a href="{{ url('/') }}"><img src="{{ asset('frontend/logo.svg') }}" alt="logo" /></a>
+                <a href="{{ url('/') }}"><img src="{{ asset('frontend/assets/imgs/logos.svg') }}" alt="logo" /></a>
             </div>
             <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                 <button class="close-style search-close">
@@ -477,31 +477,32 @@
 
                             </ul>
                         </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">Pages</a>
-                            <ul class="dropdown">
+{{--                        <li class="menu-item-has-children">--}}
+{{--                            <a href="#">Pages</a>--}}
+{{--                            <ul class="dropdown">--}}
 {{--                                <li><a href="page-about.html">About Us</a></li>--}}
 {{--                                <li><a href="page-contact.html">Contact</a></li>--}}
-                                <li><a href="{{ route('dashboard') }}">My Account</a></li>
-                                <li><a href="{{ route('login') }}">Login</a></li>
-                                <li><a href="{{ route('register') }}">Register</a></li>
+{{--                                <li><a href="{{ route('dashboard') }}">My Account</a></li>--}}
+{{--                                <li><a href="{{ route('login') }}">Login</a></li>--}}
+{{--                                <li><a href="{{ route('register') }}">Register</a></li>--}}
 {{--                                <li><a href="page-privacy-policy.html">Privacy Policy</a></li>--}}
 {{--                                <li><a href="page-terms.html">Terms of Service</a></li>--}}
-                            </ul>
-                        </li>
+{{--                            </ul>--}}
+{{--                        </li>--}}
                     </ul>
                 </nav>
                 <!-- mobile menu end -->
             </div>
             <div class="mobile-header-info-wrap">
                 <div class="single-mobile-header-info">
+
+                    @auth
+                        <a href="{{ route('dashboard') }}"><i class="fi-rs-user"></i>My Account </a>
+                        <a href="{{ route('user.logout') }}" ><i class="fi-rs-logout"></i>Log out </a>
+                    @else
+                        <a href="{{ route('login') }}"><i class="fi-rs-user"></i>Log In / Sign Up </a>
+                    @endauth
 {{--                    <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>--}}
-                </div>
-                <div class="single-mobile-header-info">
-                    <a href="{{ route('login') }}"><i class="fi-rs-user"></i>Log In / Sign Up </a>
-                </div>
-                <div class="single-mobile-header-info">
-{{--                    <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>--}}
                 </div>
             </div>
             <div class="mobile-social-icon mb-50">

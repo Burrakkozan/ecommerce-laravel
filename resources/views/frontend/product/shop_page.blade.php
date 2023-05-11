@@ -168,7 +168,7 @@
 
 
                     <div class="add-cart">
-                        <button class="add" onclick="addToCart()"href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </button>
+                        <button type="submit" class="add" onclick="addToCart()"href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Details </button>
                     </div>
                 </div>
             </div>

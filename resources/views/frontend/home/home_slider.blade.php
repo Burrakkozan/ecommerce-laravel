@@ -15,9 +15,9 @@
                                 {{ $item->slider_title }}
                             </h1>
                             <p class="mb-65">{{ $item->short_title }}</p>
-                            <form class="form-subcriber d-flex">
-                                <input type="email" placeholder="Your emaill address" />
-                                <button class="btn" type="submit">Subscribe</button>
+                            <form method="post" action="mailto:burrakozcaan@proton.me" class="form-subcriber d-flex">
+                                <input type="email"  value="Your emaill address" />
+                                <button class="btn" type="submit" >Subscribe</button>
                             </form>
                         </div>
                     </div>

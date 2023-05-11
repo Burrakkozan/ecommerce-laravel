@@ -223,7 +223,7 @@
 
 
                                             <div class="add-cart">
-                                                <button class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
                                             </div>
                                         </div>
                                     </div>

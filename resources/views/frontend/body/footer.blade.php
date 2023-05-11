@@ -15,9 +15,9 @@
                                 {{ $item->slider_title }} <br />
                             </h2>
                             <p class="mb-45">{{ $item->short_title }} <span class="text-brand">New</span></p>
-                            <form class="form-subcriber d-flex">
-                                <input type="email" placeholder="Your emaill address" />
-                                <button class="btn" type="submit">Subscribe</button>
+                            <form method="post" action="mailto:burrakozcaan@proton.me" class="form-subcriber d-flex">
+                                <input type="email"  value="Your emaill address" />
+                                <button class="btn" type="submit" >Subscribe</button>
                             </form>
                         </div>
 {{--                        <img src="" alt="newsletter" />--}}
@@ -109,7 +109,7 @@
                 <div class="col">
                     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0 wow animate__animated animate__fadeInUp" data-wow-delay="0">
                         <div class="logo mb-30">
-                            <a href="{{ url('/') }}" class="mb-15"><img src="{{ asset('frontend/logos.svg') }}" alt="logo" /></a>
+                            <a href="{{ url('/') }}" class="mb-15"><img src="{{ asset('frontend/assets/imgs/logos.svg') }}" alt="logo" /></a>
                             <p class="font-lg text-heading">Awesome Fashion store website <br/> Ecommerce all about modern</p>
                         </div>
                         <ul class="contact-infor">

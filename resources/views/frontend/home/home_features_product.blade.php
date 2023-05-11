@@ -111,7 +111,7 @@
                                                 </div>
 
                                             </div>
-                                                <button type="submit" class="btn w-100 hover-up" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart mr-5"></i>Add to cart</button>
+                                                <button type="submit" class="btn w-100 hover-up" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add to cart</button>
                                         </div>
                                     </div>
                                     <!--End product Wrap-->

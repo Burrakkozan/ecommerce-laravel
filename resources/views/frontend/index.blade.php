@@ -1,7 +1,7 @@
 @extends('frontend.master_dashboard')
-@section('title' )
-    Home easy online shop
-@endsection
+@section('title','   Home easy online shop')
+
+
 
 
 @section('main')
