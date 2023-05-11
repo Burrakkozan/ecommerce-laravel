@@ -1,16 +1,14 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+
 use App\Http\Controllers\Auth\ProviderController;
 use App\Http\Controllers\frontend\BlogController;
+
 use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\Frontend\IndexController;
-use App\Http\Controllers\frontend\PaymentController;
 use App\Http\Controllers\frontend\ShopController;
 use App\Http\Controllers\frontend\StripeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SiteMapController;
-use App\Http\Controllers\SiteSettingController;
 use App\Http\Controllers\User\AllUserController;
 use App\Http\Controllers\User\CheckoutController;
 use App\Http\Controllers\User\CompareController;

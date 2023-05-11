@@ -17,7 +17,7 @@
 
 {{--    <link rel="shortcut icon" type="image/x-icon" href="{{ url('favicon.ico') }}" sizes="16x16 32x32"/>--}}
 
-    <link rel="icon" href="{{ URL::asset('favicon.ico') }}" type="image/x-icon"sizes="16x16 32x32" />
+    <link rel="icon" href="{{ URL::asset('favicon.ico') }}"  type="image/png" style="width:90px; height:40px;"/>
     <link rel="apple-touch-icon" sizes="180x180" href="{{ url('apple-touch-icon.png') }}" />
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url('favicon-32x32.png') }}" />
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url('favicon-16x16.png') }}" />
