@@ -14,7 +14,7 @@ class ProviderController extends Controller
 {
     public function redirect($provider)
     {
-        return Socialite::driver($provider)->with([ 'hd' => "vecce.store" ])->redirect();
+        return Socialite::driver($provider)->redirect();
     }
 
     public function callback($provider)
@@ -22,17 +22,6 @@ class ProviderController extends Controller
 
         try {
             $SocialUser = Socialite::driver($provider)->user();
-            if ($provider == 'google') {
-                if ($SocialUser->user['hd'] != 'vecce.store') {
-                    return redirect('/login')->withErrors(['email' => 'You are not authorized to login']);
-                }
-            }
-            if ($provider == 'facebook') {
-                if ($SocialUser->user['id'] != 'vecce.store') {
-                    return redirect('/login')->withErrors(['email' => 'You are not authorized to login']);
-                }
-            }
-
             if(User::where('email',$SocialUser->getEmail())->exists()){
                return redirect('/login')->withErrors(['email' => 'This Email uses different method to login']);
             }
