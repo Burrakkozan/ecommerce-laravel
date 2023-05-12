@@ -59,7 +59,7 @@
     <div class="page-header breadcrumb-wrap">
         <div class="container">
             <div class="breadcrumb">
-                <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+                <a href="" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
                 <span></span>  My Account
             </div>
         </div>
@@ -70,14 +70,14 @@
                 <div class="col-xl-6 col-lg-8 col-md-12 m-auto">
                     <div class="row">
                         <div class="heading_s1">
-                            <img class="border-radius-15" src="{{ asset('frontend/assets/imgs/page/reset_password.svg') }}" alt="" />
+{{--                            <img class="border-radius-15" src="{{ asset('frontend/assets/imgs/page/reset_password.svg') }}" alt="" />--}}
                             <h2 class="mb-15 mt-15">Verify Email address</h2>
-                            <p class="mb-30">{{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+                            <p class="mb-30">{{ __('Thanks for signing up! An email has been sent.') }}
                             </p>
                         </div>
                                     <x-guest-layout>
                                         <div class="mb-4 text-sm text-gray-600">
-                                            {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
+                                            {{ __(' Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
                                         </div>
 
                                         @if (session('status') == 'verification-link-sent')
