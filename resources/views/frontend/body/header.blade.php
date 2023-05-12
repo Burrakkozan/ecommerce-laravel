@@ -350,14 +350,14 @@
                         <div class="header-action-icon-2">
                             <a href="{{route('wishlist')}}">
                                 <img alt="Nest" src="{{ asset('frontend/assets/imgs/theme/icons/icon-heart.svg') }}" />
-                                <span class="pro-count white">0</span>
+                                <span class="pro-count white" id="wishQty">0</span>
                             </a>
 
                         </div>
                         <div class="header-action-icon-2">
                             <a class="mini-cart-icon" href="{{route('mycart')}}">
                                 <img alt="Nest" src="{{ asset('frontend/assets/imgs/theme/icons/icon-cart.svg') }}" />
-                                <span class="pro-count blue" id="cartQty"> 0</span>
+                                <span class="pro-count blue" id="cartQty">0</span>
                             </a>
                             <div class="cart-dropdown-wrap cart-dropdown-hm2">
 

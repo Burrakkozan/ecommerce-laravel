@@ -22,14 +22,14 @@ class ProviderController extends Controller
 
         try {
             $SocialUser = Socialite::driver($provider)->user();
-            if(User::where('email',$SocialUser->getEmail())->exists()){
-               return redirect('/login')->withErrors(['email' => 'This Email uses different method to login']);
-            }
             $user = User::where([
                 'provider' => $provider,
                 'provider_id' => $SocialUser->id
             ])->first();
             if(!$user){
+                if(User::where('email',$SocialUser->getEmail())->exists()){
+                    return redirect('/login')->withErrors(['email' => 'This Email uses different method to login']);
+                }
                 $password = Str::random(12);
                 $user = User::create([
                     'name' => $SocialUser->getName(),
@@ -38,10 +38,10 @@ class ProviderController extends Controller
                     'provider' => $provider,
                     'provider_id' => $SocialUser->getId(),
                     'provider_token' => $SocialUser->token,
-//                    'photo' => $SocialUser->getAvatar(),
+//                   'photo' => $SocialUser->getAvatar(),
                     'is_active' => true,
                      'password' => bcrypt($password),
-//                    'email_verified_at' => now(),
+//                   'email_verified_at' => now(),
                 ]);
                 $user->sendEmailVerificationNotification();
                 $user->update([

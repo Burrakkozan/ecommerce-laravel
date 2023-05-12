@@ -3965,7 +3965,7 @@ table .product-thumbnail img {
   position: relative;
   background-color: #fff;
   overflow: hidden;
-  max-height: 320px;
+  /*max-height: 320px;*/
   padding: 25px 25px 0 25px;
 }
 
@@ -5542,7 +5542,7 @@ table .product-thumbnail img {
   background-color: #ececec;
   padding: 18px 0;
   font-family: "Quicksand", sans-serif;
-  font-size: 17px;
+  /*font-size: 17px;*/
   font-weight: 700;
   color: #080d0b;
 }
@@ -11855,7 +11855,7 @@ footer .hotline img {
     margin-right: 20px;
   }
   .product-cart-wrap .product-action-1 a.action-btn {
-    width: 34px;
+    width: 73px;
     height: 34px;
     line-height: 40px;
     font-size: 13px;
