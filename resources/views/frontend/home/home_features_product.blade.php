@@ -111,8 +111,9 @@
                                                 </div>
 
                                             </div>
+{{--                                            href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"--}}
 {{--                                                <button type="submit" class="btn w-100 hover-up" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add to cart</button>--}}
-                                            <a class="btn w-100 hover-up" id="{{ $product->id }}" onclick="addToCart(this.id)" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
+                                            <a class="btn w-100 hover-up" id="{{ $product->id }}" onclick="addToCart(this.id)" ><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
 
                                         </div>
                                     </div>
