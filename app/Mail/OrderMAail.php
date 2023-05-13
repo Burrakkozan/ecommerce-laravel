@@ -22,8 +22,6 @@ class OrderMAail extends Mailable
        $data
     )
     {
-
-
         $this->data = $data;
     }
 
@@ -34,7 +32,7 @@ class OrderMAail extends Mailable
     {
         return new Envelope(
 
-            from: ('sptburakozcan@gmail.com'),
+            from: ('info@vecce.store'),
             subject: 'Order Details',
         );
     }
