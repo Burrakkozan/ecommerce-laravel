@@ -162,8 +162,7 @@ $avarage = App\Models\Review::where('product_id',$product->id)->where('status',1
                     <div class="product-extra-link2">
 
  <input type="hidden" id="dproduct_id" value="{{ $product->id }}">
-
-    <button type="submit" class="button button-add-to-cart" onclick="addToCart()"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
+                        <button type="submit" class="button button-add-to-cart" onclick="addToCartDetails()"><i class="fi-rs-shopping-cart"></i>Add to cart</button>
 
                         <a aria-label="Add To Wishlist" class="action-btn hover-up" id="{{ $product->id }}" onclick="addToWishList(this.id)"><i class="fi-rs-heart"></i></a>
                         <a aria-label="Compare" class="action-btn hover-up" id="{{ $product->id }}" onclick="addToCompare(this.id)"><i class="fi-rs-shuffle"></i></a>
