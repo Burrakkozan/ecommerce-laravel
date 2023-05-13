@@ -134,8 +134,9 @@
 
 
                                             <div class="add-cart">
-                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
-{{--                                                <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>--}}
+{{--                                           <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>--}}
+                                                <a class="button button-add-to-cart" id="{{ $product->id }}" onclick="addToCart(this.id)" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -270,7 +271,8 @@
 
 
                                             <div class="add-cart">
-                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                                <a class="button button-add-to-cart" id="{{ $product->id }}" onclick="addToCart(this.id)" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -407,7 +409,7 @@
 
 
                                             <div class="add-cart">
-                                                <button type="submit" class="add" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add </button>
+                                                <a class="button button-add-to-cart" id="{{ $product->id }}" onclick="addToCart(this.id)" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
                                             </div>
                                         </div>
                                     </div>

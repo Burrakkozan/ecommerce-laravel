@@ -111,7 +111,9 @@
                                                 </div>
 
                                             </div>
-                                                <button type="submit" class="btn w-100 hover-up" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add to cart</button>
+{{--                                                <button type="submit" class="btn w-100 hover-up" onclick="addToCart()"><i class="fi-rs-shopping-cart mr-5"></i>Add to cart</button>--}}
+                                            <a class="btn w-100 hover-up" id="{{ $product->id }}" onclick="addToCart(this.id)" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add</a>
+
                                         </div>
                                     </div>
                                     <!--End product Wrap-->
