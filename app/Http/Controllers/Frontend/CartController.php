@@ -60,12 +60,14 @@ class CartController extends Controller
 
         }
 
-    }// End Method
+    }// End Method,
+
     public function AddToCartDetails(Request $request, $id){
 
         if(Session::has('coupon')){
             Session::forget('coupon');
         }
+
 
         $product = Product::findOrFail($id);
 
@@ -76,7 +78,7 @@ class CartController extends Controller
                 'id' => $id,
                 'name' => $request->product_name,
                 'qty' => $request->quantity,
-                'price' => $product->discount_price,
+                'price' => $product->selling_price,
                 'weight' => 1,
                 'options' => [
                     'image' => $product->image,
@@ -97,10 +99,9 @@ class CartController extends Controller
                 'price' => $product->discount_price,
                 'weight' => 1,
                 'options' => [
-                    'image' => $product->product_thambnail,
+                    'image' => $product->image,
                     'color' => $request->color,
                     'size' => $request->size,
-                    'vendor' => $request->vendor,
                 ],
             ]);
 
@@ -108,7 +109,7 @@ class CartController extends Controller
 
         }
 
-    }// End Method
+    }// End Method,
 
 
     public function AddMiniCart(){
