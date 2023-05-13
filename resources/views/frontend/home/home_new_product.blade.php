@@ -223,7 +223,7 @@
 
 
                                             <div class="add-cart">
-                                                <a class="button button-add-to-cart" id="{{ $product->id }}" onclick="addToCart(this.id)" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                <a class="button button-add-to-cart" href="{{ url('product/details/'.$product->id.'/'.$product->slug) }}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
 
                                             </div>
                                         </div>
